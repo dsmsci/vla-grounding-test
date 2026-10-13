@@ -121,6 +121,19 @@ class Scene:
         """Read an object body position directly from MuJoCo."""
         return self.sim.data.body_xpos[self.raw.obj_body_id[obj]].copy()
 
+    def restore(self, snapshot):
+        """Restore a recorded physical state for activation extraction, without stepping physics.
+
+        Call reset with the same scene seed first. Grasp/placement history is not replayed;
+        this method is only used for static paired forwards, never to resume a rollout.
+        Derived poses/contacts are recomputed by MuJoCo rather than copied from a trace.
+        """
+        self.sim.set_state_from_flattened(np.asarray(snapshot["state"]))
+        self.sim.forward()
+        self.obs = self.raw._get_observations(force_update=True)
+        if not np.array_equal(self.sim.get_state().flatten(), snapshot["state"]):
+            raise RuntimeError("Recorded simulator state did not restore")
+
     @staticmethod
     def goal_region(goal):
         """Resolve the native basket/stove placement site for relation checks."""

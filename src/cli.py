@@ -63,9 +63,9 @@ def plan(cfg):
         rows[family] = dict(
             baseline=2 * d * contrasts,
             development_patch=(2 * k * d + 2 * d + 1) * contrasts,
-            development_steering=len(cfg.alphas) * d if family.startswith("T") else 0,
+            development_steering=len(cfg.alphas) * d,
             test_patch=6 * t * contrasts,
-            test_steering=5 * t if family.startswith("T") else 0,
+            test_steering=5 * t,
             test_mixed=8 * t if family.endswith("color") else 0,
         )
         rows[family]["maximum"] = sum(rows[family].values())
@@ -73,7 +73,8 @@ def plan(cfg):
         seed=cfg.seed,
         sites=list(cfg.sites),
         episodes=rows,
-        note="Upper bounds if conditional steering runs; donor forwards add computation.",
+        smoke_upper_bound=len(cfg.families) * (2 + len({"context", "dit_0"} & set(cfg.sites))),
+        note="Upper bounds if conditional steering runs; smoke overlaps development. Donor/diagnostic forwards add computation.",
     )
 
 
@@ -85,11 +86,26 @@ def main(stage="smoke", *overrides, config="mvp"):
         python run.py develop
         python run.py diagnose --config=color
         python run.py smoke output=results/probe save_videos=false
+        python run.py all output=results/full videos=videos/full
 
-    Stages: setup, download, doctor, simcheck, plan, smoke, baseline,
+    Stages: all, setup, download, doctor, simcheck, plan, smoke, baseline,
             diagnose, patch, steer, develop, test, report, ui.
     """
     cfg = compose_config(config, overrides)
+    if stage != "all":
+        return run_stage(stage, cfg)
+    cfg.families = ["T_native", "G_native", "T_color", "G_color"]
+    LOGGER.warning("Full native + color run: %s", plan(cfg))
+    for step in ("setup", "doctor", "simcheck", "download", "smoke", "develop", "test", "report"):
+        LOGGER.warning("Full run stage: %s", step)
+        result = run_stage(step, cfg)
+        if isinstance(result, dict) and result.get("status") == "interrupted":
+            return dict(run_stage("report", cfg), status="interrupted")
+    return result
+
+
+def run_stage(stage, cfg):
+    """Run one stage with an already composed configuration; reuse the standard MLflow lifecycle."""
     if stage == "plan":
         return plan(cfg)
     if stage == "ui":

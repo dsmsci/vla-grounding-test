@@ -1,6 +1,7 @@
 """Development-only choices, fixed-site patching and frozen held-out evaluation."""
 
 import hashlib
+import json
 import logging
 from itertools import product
 
@@ -189,28 +190,43 @@ class Experiment:
             preservation_drop=drop,
             preservation_within_tolerance=drop <= self.cfg.preservation_tolerance,
             controls=gains,
-            positive=forward > 0
-            and reverse > 0
-            and min(gains.values()) > 0,
+            positive=forward > 0 and min(gains.values()) > 0,
         )
         atomic_json(path, result)
         LOGGER.info("selected development patch %s/%s: %s", self.family, contrast, result)
         return result
 
     def direction(self, site):
-        """Average token-aligned text differences over all development scenes, without success filtering."""
+        """Average paired text differences at initial T states or recorded post-grasp G states."""
         path, metadata = self.path / "direction.pt", self.path / "direction.json"
         if path.exists() and metadata.exists():
             if hashlib.sha256(path.read_bytes()).hexdigest() != read_json(metadata)["sha256"]:
                 raise ValueError("Development direction changed; use a new output.")
             return torch.load(path, map_location="cpu", weights_only=True)
-        deltas, same, sources, reference = [], [], [], None
+        deltas, same, sources, missing, reference = [], [], [], [], None
         scene, policy = self.e.scene, self.e.policy
+        phase = "initial" if self.family[0] == "T" else "post_grasp"
+        baselines = self.run_cells("development", "text", ["baseline"]) if phase == "post_grasp" else []
         for i in range(self.cfg.development):
-            scene.reset(scene_seed(self.cfg, self.family, "development", i))
+            state_seed = scene_seed(self.cfg, self.family, "development", i)
+            scene.reset(state_seed)
+            noise, step, source_run = seed_for(self.cfg.seed, 0), 0, None
+            if phase == "post_grasp":
+                row = next(r for r in baselines if r["index"] == i)
+                source_run = row["mlflow_run_id"]
+                trace_path = mlflow.artifacts.download_artifacts(
+                    run_id=source_run, artifact_path="trace/calls.jsonl"
+                )
+                with open(trace_path) as stream:
+                    state = next((r for line in stream if (r := json.loads(line))["phase_active"]), None)
+                if state is None:
+                    missing.append(i)
+                    continue
+                scene.restore(state)
+                noise, step = state["noise_seed"], state["step"]
             traces = [
                 policy.forward(
-                    scene.observation(t, 0, paraphrase=p), seed_for(self.cfg.seed, 0), capture=[site]
+                    scene.observation(t, 0, paraphrase=p), noise, capture=[site]
                 )["trace"]
                 for t, p in ((0, False), (1, False), (0, True))
             ]
@@ -224,8 +240,19 @@ class Experiment:
                             raise ValueError("Steering source mask mismatch")
             deltas.append(traces[1].values[site].float() - traces[0].values[site].float())
             same.append(traces[2].values[site].float() - traces[0].values[site].float())
-            target = scene.f["targets"][1 ^ scene.parity]
-            sources.append(dict(index=i, target=target, position=scene.position(target).tolist()))
+            target = scene.f["targets" if phase == "initial" else "goals"][1 ^ scene.parity]
+            position = scene.position(target) if phase == "initial" else scene.goal_position(target)
+            sources.append(dict(
+                index=i, scene_id=state_seed, target=target, position=position.tolist(),
+                phase=phase, step=step, noise_seed=noise, mlflow_run_id=source_run,
+            ))
+        provenance = dict(
+            site=site, factor=self.family[0], phase=phase, development_scenes=self.cfg.development,
+            source_count=len(sources), missing_phase_indices=missing, sources=sources,
+        )
+        if not sources:
+            atomic_json(metadata, provenance)
+            return None
         result = dict(
             delta=torch.stack(deltas).mean(0),
             same=torch.stack(same).mean(0),
@@ -237,24 +264,28 @@ class Experiment:
         torch.save(result, temporary)
         temporary.replace(path)
         atomic_json(
-            metadata, dict(site=site, sources=sources, sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+            metadata, dict(provenance, sha256=hashlib.sha256(path.read_bytes()).hexdigest())
         )
         return result
 
     def prepare_steering(self, patches):
-        """Tune steering on factor choice after a bidirectional patch beats its controls."""
-        if self.family[0] != "T":
-            return None
-        if not patches or not patches["positive"]:
-            return dict(
-                site=None, alpha=None,
-                reason="Development factor-choice patch did not improve both directions and beat controls",
-            )
+        """Tune T/G steering after a positive forward patch; reverse effects remain diagnostic."""
         path = self.path / "steering.json"
         if path.exists():
             return read_json(path)
+        if not patches or not patches["positive"]:
+            result = dict(
+                site=None, alpha=None,
+                reason="Direct development patch did not improve alternative choice and beat controls",
+            )
+            atomic_json(path, result)
+            return result
         site = patches["site"]
         direction = self.direction(site)
+        if direction is None:
+            result = dict(site=site, alpha=None, source_count=0, reason="No development baseline reached the G intervention phase")
+            atomic_json(path, result)
+            return result
         base = self.run_cells("development", "text", ["baseline"])
         preservation = float(np.mean([r["preserve"] for r in base]))
         scores, drops = {}, {}
@@ -268,6 +299,8 @@ class Experiment:
         result = dict(
             site=site,
             metric="choice1",
+            factor=self.family[0],
+            source_count=len(direction["sources"]),
             alpha=alpha,
             scores=scores,
             preservation_drops=drops,

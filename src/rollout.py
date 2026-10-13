@@ -300,12 +300,19 @@ class Rollout:
                 video=str(video_path) if writer else None,
             )
             if direction:
-                eef = grasp_eef if grasp_eef is not None else np.asarray(scene.snapshot()["eef"])
-                current = scene.f["targets"][1 ^ scene.parity]
-                result["distance_probe"] = "first_grasp" if grasp_eef is not None else "final_no_grasp"
-                result["d_current"] = float(np.linalg.norm(eef - np.asarray(initial["poses"][current][:3])))
+                if cell.family[0] == "T":
+                    probe = grasp_eef if grasp_eef is not None else np.asarray(scene.snapshot()["eef"])
+                    current = scene.f["targets"][1 ^ scene.parity]
+                    position = initial["poses"][current][:3]
+                    result["distance_probe"] = "first_grasp" if grasp_eef is not None else "final_no_grasp"
+                else:
+                    probe = scene.position(scene.f["targets"][0])
+                    current = scene.f["goals"][1 ^ scene.parity]
+                    position = initial["goal_positions"][current]
+                    result["distance_probe"] = "final_object"
+                result["d_current"] = float(np.linalg.norm(probe - np.asarray(position)))
                 result["d_sources"] = [
-                    float(np.linalg.norm(eef - np.asarray(s["position"]))) for s in direction["sources"]
+                    float(np.linalg.norm(probe - np.asarray(s["position"]))) for s in direction["sources"]
                 ]
             if writer:
                 writer.close()
@@ -313,9 +320,12 @@ class Rollout:
             atomic_json(folder / "outcome.json", result)
             mlflow.log_artifacts(str(folder), "trace")
             LOGGER.info(
-                "episode done %s: success=%s select1=%s steps=%d",
+                "episode done %s: success=%s choice0=%s choice1=%s R=%s select1=%s steps=%d",
                 cell.key,
                 result["success"],
+                result["choice0"],
+                result["choice1"],
+                result["R"],
                 result["select1"],
                 result["steps"],
             )

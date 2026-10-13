@@ -5,6 +5,7 @@ from itertools import product
 import numpy as np
 import pandas as pd
 from mlflow import MlflowClient
+from omegaconf import OmegaConf
 from scipy.stats import binomtest, bootstrap
 
 from .core import atomic_json, project_path, read_json
@@ -101,6 +102,9 @@ def coverage(cfg, rows):
                 family=family,
                 expected=len(expected),
                 completed=len(expected & actual),
+                steering_status="included" if steering and steering["alpha"] is not None else "skipped",
+                steering_reason=steering.get("reason") if steering else "No frozen steering decision",
+                steering_sources=steering.get("source_count") if steering else None,
                 status="skipped: no frozen patch/steering"
                 if not expected
                 else "complete"
@@ -115,6 +119,8 @@ def report(cfg, parent_id):
     """Write compact tables from completed MLflow runs and upload them to the parent."""
     out = project_path(cfg.output)
     out.mkdir(parents=True, exist_ok=True)
+    if (out / "config.yaml").exists():
+        cfg = OmegaConf.load(out / "config.yaml")
     rows = completed_results(parent_id)
     rates, effects = [], []
     if rows:
@@ -122,13 +128,16 @@ def report(cfg, parent_id):
         frame.to_csv(out / "episodes.csv", index=False)
         for key, group in frame.groupby(list(GROUPS), dropna=False):
             n, k = len(group), int(group["success"].sum())
-            interval = binomtest(k, n).proportion_ci(method="wilson")
+            intervals = {}
+            for metric in ("success", "choice0", "choice1"):
+                interval = binomtest(int(group[metric].sum()), n).proportion_ci(method="wilson")
+                intervals[f"{metric}_ci95"] = [float(interval.low), float(interval.high)]
             rates.append(
                 dict(zip(GROUPS, key))
                 | dict(
                     n=n,
                     successes=k,
-                    success_ci95=[float(interval.low), float(interval.high)],
+                    **intervals,
                     **{m: float(group[m].mean()) for m in METRICS},
                 )
             )
@@ -150,6 +159,14 @@ def report(cfg, parent_id):
                                 (
                                     f"patch_to_alt-{c}:{site}",
                                     [(1, target), (-1, dict(condition=c, site=site, alpha=1.0))],
+                                )
+                            )
+                    if condition == "steer" and split == "test":
+                        for c in ("steer_minus", "steer_zero", "steer_same", "steer_random"):
+                            comparisons.append(
+                                (
+                                    f"steer-{c}:{site}:{alpha}",
+                                    [(1, target), (-1, dict(condition=c, site=site, alpha=alpha))],
                                 )
                             )
             for prefix, site in (("mixed_", ""), ("mixedpatch_", "context")):
@@ -187,5 +204,7 @@ def report(cfg, parent_id):
     client.log_metric(parent_id, "completed_episodes", len(rows))
     for row in rates:
         key = "/".join(str(row[k]) if row[k] != "" else "none" for k in GROUPS)
-        client.log_metric(parent_id, f"SR/{key}", row["success"])
+        for metric in ("success", "choice0", "choice1", "R", "preserve"):
+            name = "SR" if metric == "success" else metric
+            client.log_metric(parent_id, f"{name}/{key}", row[metric])
     return {k: v for k, v in result.items() if k not in {"rates", "effects"}}
