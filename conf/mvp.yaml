@@ -1,12 +1,15 @@
 # One experiment seed; scene and call seeds are derived deterministically from it.
 seed: 17
 families: [T_native, G_native]
-development: 16
-test: 30
+# Paired scenes per family and condition; test is the held-out validation set.
+development: 8
+test: 12
 # Fixed before any run: module interfaces plus text/image cross-attention at three depths.
 sites: [backbone, context, dit_0, dit_2, dit_16, dit_18, dit_28, dit_30]
 denoise_step: 0
-execute: 8
+# Execute 1..16 valid actions from each predicted chunk before replanning.
+# Phase changes, success and the episode horizon can interrupt the chunk earlier.
+execute: 16
 max_steps: 300
 success_hold_steps: 5
 baseline_threshold: 0.6
