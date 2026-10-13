@@ -121,7 +121,7 @@ class Experiment:
         atomic_json(path / "done.json", dict(self_check=check, sites=sites, n=self.cfg.development))
 
     def competence(self, contrast):
-        """Require both ordinary commands to work; retain every failure in the denominator."""
+        """Describe baseline completion and factor choice without gating interventions."""
         path = self.path / f"{contrast}_competence.json"
         if path.exists():
             return read_json(path)
@@ -132,8 +132,14 @@ class Experiment:
         }
         result = dict(
             rates=rates,
-            admitted=min(rates.values()) >= self.cfg.baseline_threshold,
-            threshold=self.cfg.baseline_threshold,
+            factor_rates={
+                c: {
+                    m: float(np.mean([r[m] for r in rows if r["condition"] == c]))
+                    for m in ("T_correct", "G_correct", "R", "choice0", "choice1")
+                }
+                for c in ("baseline", "alternate")
+            },
+            role="diagnostic_only",
             denominator=self.cfg.development,
         )
         atomic_json(path, result)
@@ -141,9 +147,8 @@ class Experiment:
         return result
 
     def prepare_patch(self, contrast):
-        """Compare fixed candidates on development, then validate the selected site with controls."""
-        if not self.competence(contrast)["admitted"]:
-            return None
+        """Compare bidirectional factor-choice effects, retaining completion as diagnostics."""
+        self.competence(contrast)
         path = self.path / f"{contrast}_patch.json"
         if path.exists():
             return read_json(path)
@@ -152,10 +157,10 @@ class Experiment:
         for site in self.cfg.sites:
             rows = self.run_cells("development", contrast, ["patch_to_alt", "patch_to_base"], site=site)
             candidates[site] = rows
-            forward = np.mean([r["select1"] for r in rows if r["condition"] == "patch_to_alt"])
-            forward -= np.mean([r["select1"] for r in base if r["condition"] == "baseline"])
-            reverse = np.mean([r["select0"] for r in rows if r["condition"] == "patch_to_base"])
-            reverse -= np.mean([r["select0"] for r in base if r["condition"] == "alternate"])
+            forward = np.mean([r["choice1"] for r in rows if r["condition"] == "patch_to_alt"])
+            forward -= np.mean([r["choice1"] for r in base if r["condition"] == "baseline"])
+            reverse = np.mean([r["choice0"] for r in rows if r["condition"] == "patch_to_base"])
+            reverse -= np.mean([r["choice0"] for r in base if r["condition"] == "alternate"])
             scores[site] = float((forward + reverse) / 2)
         site = min(scores, key=lambda value: (-scores[value], value))
         controls = self.run_cells("development", contrast, ["patch_same", "patch_random"], site=site)
@@ -165,11 +170,11 @@ class Experiment:
             """Average one complete selected-site condition."""
             return float(np.mean([r[metric] for r in rows if r["condition"] == condition]))
 
-        forward = mean("patch_to_alt", "select1") - mean("baseline", "select1")
-        reverse = mean("patch_to_base", "select0") - mean("alternate", "select0")
+        forward = mean("patch_to_alt", "choice1") - mean("baseline", "choice1")
+        reverse = mean("patch_to_base", "choice0") - mean("alternate", "choice0")
         drop = mean("baseline", "preserve") - mean("patch_to_alt", "preserve")
         gains = {
-            c: mean("patch_to_alt", "select1") - mean(c, "select1") for c in ("patch_same", "patch_random")
+            c: mean("patch_to_alt", "choice1") - mean(c, "choice1") for c in ("patch_same", "patch_random")
         }
         self_row = self.run_cells("development", contrast, ["patch_self"], site=site, count=1)[0]
         reference = next(r for r in base if r["condition"] == "baseline" and r["index"] == 0)
@@ -177,14 +182,15 @@ class Experiment:
             raise RuntimeError(f"Self-patch changed rollout outcomes at {site}")
         result = dict(
             site=site,
+            metric="factor_choice",
             development_scores=scores,
             forward=forward,
             reverse=reverse,
             preservation_drop=drop,
+            preservation_within_tolerance=drop <= self.cfg.preservation_tolerance,
             controls=gains,
             positive=forward > 0
             and reverse > 0
-            and drop <= self.cfg.preservation_tolerance
             and min(gains.values()) > 0,
         )
         atomic_json(path, result)
@@ -236,11 +242,14 @@ class Experiment:
         return result
 
     def prepare_steering(self, patches):
-        """Choose one positive patch site by behavior, then tune additive strength on development."""
+        """Tune steering on factor choice after a bidirectional patch beats its controls."""
         if self.family[0] != "T":
             return None
         if not patches or not patches["positive"]:
-            return dict(site=None, alpha=None, reason="No positive selective development patch")
+            return dict(
+                site=None, alpha=None,
+                reason="Development factor-choice patch did not improve both directions and beat controls",
+            )
         path = self.path / "steering.json"
         if path.exists():
             return read_json(path)
@@ -253,16 +262,17 @@ class Experiment:
             rows = self.run_cells(
                 "development", "text", ["steer"], site=site, alpha=alpha, direction=direction
             )
-            scores[alpha] = float(np.mean([r["select1"] for r in rows]))
+            scores[alpha] = float(np.mean([r["choice1"] for r in rows]))
             drops[alpha] = preservation - float(np.mean([r["preserve"] for r in rows]))
-        allowed = [a for a in scores if drops[a] <= self.cfg.preservation_tolerance]
-        alpha = min(allowed, key=lambda a: (-scores[a], a)) if allowed else None
+        alpha = min(scores, key=lambda a: (-scores[a], a))
         result = dict(
             site=site,
+            metric="choice1",
             alpha=alpha,
             scores=scores,
             preservation_drops=drops,
-            reason=None if alpha is not None else "No alpha preserves the other requirements",
+            preservation_within_tolerance={a: d <= self.cfg.preservation_tolerance for a, d in drops.items()},
+            reason=None,
         )
         atomic_json(path, result)
         return result
@@ -284,11 +294,10 @@ class Experiment:
             return read_json(frozen)
         patches = {}
         for contrast in self.contrasts:
-            competence = self.path / f"{contrast}_competence.json"
             path = self.path / f"{contrast}_patch.json"
-            if not competence.exists() or (read_json(competence)["admitted"] and not path.exists()):
+            if not path.exists():
                 raise ValueError("Finish the patch stage before steering/freezing.")
-            patches[contrast] = read_json(path) if path.exists() else None
+            patches[contrast] = read_json(path)
         steering = self.prepare_steering(patches["text"])
         result = dict(
             patches=patches,

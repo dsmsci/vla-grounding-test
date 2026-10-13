@@ -10,7 +10,9 @@ from scipy.stats import binomtest, bootstrap
 from .core import atomic_json, project_path, read_json
 from .tracking import completed_results
 
-METRICS = ("success", "select0", "select1", "T_correct", "G_correct", "R", "preserve", "choice1")
+METRICS = (
+    "success", "select0", "select1", "T_correct", "G_correct", "R", "preserve", "choice0", "choice1"
+)
 GROUPS = ("family", "split", "contrast", "condition", "site", "alpha")
 
 
@@ -99,7 +101,7 @@ def coverage(cfg, rows):
                 family=family,
                 expected=len(expected),
                 completed=len(expected & actual),
-                status="skipped: no admitted patch/steering"
+                status="skipped: no frozen patch/steering"
                 if not expected
                 else "complete"
                 if expected <= actual

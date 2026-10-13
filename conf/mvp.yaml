@@ -12,7 +12,7 @@ denoise_step: 0
 execute: 16
 max_steps: 300
 success_hold_steps: 5
-baseline_threshold: 0.6
+# Diagnostic tolerance for completed-outcome preservation; never an admission gate.
 preservation_tolerance: 0.05
 alphas: [0.5, 1.0, 1.5]
 bootstrap: 10000

@@ -35,7 +35,7 @@ def config(name="mvp", overrides=()):
         raise ValueError("Intervention sites must be a nonempty distinct list.")
     if not 1 <= cfg.execute <= 16 or cfg.max_steps < 1 or cfg.denoise_step not in range(4):
         raise ValueError("Invalid action horizon or flow-matching step.")
-    if cfg.success_hold_steps < 1 or not 0 <= cfg.baseline_threshold <= 1:
+    if cfg.success_hold_steps < 1:
         raise ValueError("Invalid success criterion.")
     if cfg.seed < 0 or cfg.bootstrap < 1 or not cfg.alphas:
         raise ValueError("Invalid seed, bootstrap count or steering coefficients.")

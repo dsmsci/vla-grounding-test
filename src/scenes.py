@@ -265,6 +265,7 @@ class Scene:
             G_correct=bool(gc),
             success=bool(tc and gc and relation),
             choice=choice,
+            choice0=choice == self.parity,
             choice1=choice == (1 ^ self.parity),
             select0=bool(choice == self.parity and preserve),
             select1=bool(choice == (1 ^ self.parity) and preserve),

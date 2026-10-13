@@ -73,7 +73,7 @@ def plan(cfg):
         seed=cfg.seed,
         sites=list(cfg.sites),
         episodes=rows,
-        note="Upper bounds if competence/steering gates pass; donor forwards add computation.",
+        note="Upper bounds if conditional steering runs; donor forwards add computation.",
     )
 
 
