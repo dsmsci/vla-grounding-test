@@ -1,0 +1,7 @@
+defaults:
+  - mvp
+  - _self_
+
+families: [T_color, G_color]
+output: results/color
+videos: videos/color

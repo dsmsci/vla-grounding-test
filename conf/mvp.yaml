@@ -1,0 +1,24 @@
+# One experiment seed; scene and call seeds are derived deterministically from it.
+seed: 17
+families: [T_native, G_native]
+development: 16
+test: 30
+# Fixed before any run: module interfaces plus text/image cross-attention at three depths.
+sites: [backbone, context, dit_0, dit_2, dit_16, dit_18, dit_28, dit_30]
+denoise_step: 0
+execute: 8
+max_steps: 300
+success_hold_steps: 5
+baseline_threshold: 0.6
+preservation_tolerance: 0.05
+alphas: [0.5, 1.0, 1.5]
+bootstrap: 10000
+save_videos: true
+save_images: false
+output: results/mvp
+videos: videos/mvp
+tracking:
+  directory: mlflow
+  experiment: groot-libero-mvp
+  host: 127.0.0.1
+  port: 5000

@@ -1,0 +1,20 @@
+services:
+  experiment:
+    platform: linux/amd64
+    build: .
+    gpus: all
+    shm_size: 2gb
+    init: true
+    stdin_open: true
+    tty: true
+    environment:
+      HF_TOKEN: ${HF_TOKEN:-}
+    volumes:
+      - ./results:/app/results
+      - ./mlflow:/app/mlflow
+      - ./videos:/app/videos
+      - ./checkpoints:/app/checkpoints
+      - ./.cache/huggingface:/hf
+    # Published only by "docker compose run --service-ports ... ui".
+    ports:
+      - "127.0.0.1:5000:5000"

@@ -1,0 +1,10 @@
+.git
+.venv
+.cache
+checkpoints
+vendor
+videos
+mlflow
+results
+**/__pycache__
+.env

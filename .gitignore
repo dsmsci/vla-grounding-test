@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.ruff_cache/
+vendor/
+checkpoints/
+.cache/
+mlflow/
+videos/
+# Compact tables, provenance, decisions, scene references and sampled maps stay visible to git.
+results/**/episodes/
+results/**/simcheck/
+results/**/execution.log
+results/**/.writer.lock
+.env
+*.mp4
+*.safetensors
