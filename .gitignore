@@ -10,7 +10,12 @@ videos/
 results/**/episodes/
 results/**/simcheck/
 results/**/execution.log
+results/**/diagnostics/**/rollout_samples/
 results/**/.writer.lock
+results/**/diagnostics/**/*.npz
+results/**/decisions/**/*.pt
+results/**/diagnostics/**/*_image.png
+results/**/diagnostics/**/*_input.json
 .env
 *.mp4
 *.safetensors
