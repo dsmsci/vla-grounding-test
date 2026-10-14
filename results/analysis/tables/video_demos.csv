@@ -1,0 +1,10 @@
+demo,video_file,episode_key,family,condition,index,scene_id,choice0,choice1,select0,select1,R,success
+g_native,videos/demos/G_native_test_text_baseline_none_scene000_seed17_a1.mp4,G_native_test_text_baseline_none_scene000_seed17_a1,G_native,baseline,0,967152496,1.0,0.0,1.0,0.0,1.0,1.0
+g_native,videos/demos/G_native_test_text_patch_to_alt_backbone_scene000_seed17_a1.mp4,G_native_test_text_patch_to_alt_backbone_scene000_seed17_a1,G_native,patch_to_alt,0,967152496,0.0,1.0,0.0,1.0,1.0,0.0
+g_native,videos/demos/G_native_test_text_steer_backbone_scene000_seed17_a1.mp4,G_native_test_text_steer_backbone_scene000_seed17_a1,G_native,steer,0,967152496,0.0,1.0,0.0,1.0,1.0,0.0
+t_native,videos/demos/T_native_test_text_baseline_none_scene000_seed17_a1.mp4,T_native_test_text_baseline_none_scene000_seed17_a1,T_native,baseline,0,1475158314,1.0,0.0,1.0,0.0,1.0,1.0
+t_native,videos/demos/T_native_test_text_patch_to_alt_backbone_scene000_seed17_a1.mp4,T_native_test_text_patch_to_alt_backbone_scene000_seed17_a1,T_native,patch_to_alt,0,1475158314,0.0,0.0,0.0,0.0,0.0,0.0
+t_native,videos/demos/T_native_test_text_patch_to_base_backbone_scene000_seed17_a1.mp4,T_native_test_text_patch_to_base_backbone_scene000_seed17_a1,T_native,patch_to_base,0,1475158314,1.0,0.0,1.0,0.0,1.0,0.0
+g_color,videos/demos/G_color_test_mixed_mixed_00_none_scene000_seed17_a1.mp4,G_color_test_mixed_mixed_00_none_scene000_seed17_a1,G_color,mixed_00,0,1238327548,1.0,0.0,1.0,0.0,1.0,1.0
+g_color,videos/demos/G_color_test_mixed_mixed_10_none_scene000_seed17_a1.mp4,G_color_test_mixed_mixed_10_none_scene000_seed17_a1,G_color,mixed_10,0,1238327548,1.0,0.0,1.0,0.0,1.0,0.0
+g_color,videos/demos/G_color_test_mixed_mixed_01_none_scene000_seed17_a1.mp4,G_color_test_mixed_mixed_01_none_scene000_seed17_a1,G_color,mixed_01,0,1238327548,1.0,0.0,1.0,0.0,1.0,0.0

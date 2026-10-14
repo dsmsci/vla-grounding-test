@@ -1,0 +1,13 @@
+family,series,change,n,excluded,known_both,physical_flip_count,physical_flip_rate,flip_wilson_low,flip_wilson_high,both_correct_count,both_correct_rate
+T_color,inputs,text_swap,12,0,5,0,0.0,0.0,0.24249400665524085,0,0.0
+T_color,inputs,visual_swap,12,0,6,0,0.0,0.0,0.24249400665524085,0,0.0
+T_color,inputs,both_swap,12,0,6,0,0.0,0.0,0.24249400665524085,3,0.25
+T_color,context_patch,text_swap,12,0,5,0,0.0,0.0,0.24249400665524085,0,0.0
+T_color,context_patch,visual_swap,12,0,6,0,0.0,0.0,0.24249400665524085,0,0.0
+T_color,context_patch,both_swap,12,0,6,0,0.0,0.0,0.24249400665524085,3,0.25
+G_color,inputs,text_swap,12,0,12,0,0.0,0.0,0.24249400665524085,0,0.0
+G_color,inputs,visual_swap,12,0,12,0,0.0,0.0,0.24249400665524085,0,0.0
+G_color,inputs,both_swap,12,0,12,0,0.0,0.0,0.24249400665524085,6,0.5
+G_color,context_patch,text_swap,12,0,12,0,0.0,0.0,0.24249400665524085,0,0.0
+G_color,context_patch,visual_swap,12,0,12,0,0.0,0.0,0.24249400665524085,0,0.0
+G_color,context_patch,both_swap,12,0,12,0,0.0,0.0,0.24249400665524085,6,0.5

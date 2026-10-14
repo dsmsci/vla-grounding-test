@@ -1,0 +1,5 @@
+family,expected,completed,status,steering_status,development_episodes,development_scenes,test_scenes
+T_native,72,72,complete,skipped,161,8,12
+G_native,132,132,complete,included,185,8,12
+T_color,300,300,complete,included,346,8,12
+G_color,240,240,complete,skipped,322,8,12

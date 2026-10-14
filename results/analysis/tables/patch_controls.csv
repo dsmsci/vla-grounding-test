@@ -1,0 +1,13 @@
+family,contrast,site,control,choice1_n,choice1_excluded,choice1_delta_pp,choice1_low_pp,choice1_high_pp,Y1_n,Y1_excluded,Y1_delta_pp,Y1_low_pp,Y1_high_pp,R_n,R_excluded,R_delta_pp,R_low_pp,R_high_pp
+T_native,text,backbone,patch_same,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0,12,0,-100.0,-100.0,-100.0
+T_native,text,backbone,patch_random,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0,12,0,-100.0,-100.0,-100.0
+G_native,text,backbone,patch_same,12,0,83.33333333333334,58.333333333333336,100.0,12,0,83.33333333333334,58.333333333333336,100.0,12,0,0.0,0.0,0.0
+G_native,text,backbone,patch_random,12,0,83.33333333333334,58.333333333333336,100.0,12,0,83.33333333333334,58.333333333333336,100.0,12,0,0.0,0.0,0.0
+T_color,text,dit_28,patch_same,12,0,8.333333333333332,0.0,25.0,12,0,16.666666666666664,0.0,41.66666666666667,12,0,25.0,-8.333333333333332,58.333333333333336
+T_color,text,dit_28,patch_random,12,0,16.666666666666664,0.0,41.66666666666667,12,0,8.333333333333332,0.0,25.0,12,0,16.666666666666664,-16.666666666666664,50.0
+T_color,visual,dit_2,patch_same,12,0,0.0,0.0,0.0,12,0,-8.333333333333332,-25.0,0.0,12,0,-8.333333333333332,-25.0,0.0
+T_color,visual,dit_2,patch_random,12,0,0.0,-25.0,25.0,12,0,0.0,-25.0,25.0,12,0,0.0,-25.0,25.0
+G_color,text,backbone,patch_same,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0
+G_color,text,backbone,patch_random,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0
+G_color,visual,backbone,patch_same,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0
+G_color,visual,backbone,patch_random,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0,12,0,0.0,0.0,0.0

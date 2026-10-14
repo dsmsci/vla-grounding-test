@@ -1,0 +1,7 @@
+family,contrast,site,score_pp,selected,n_equal_max
+T_native,text,backbone,50.0,True,2
+G_native,text,backbone,81.25,True,2
+T_color,text,dit_28,6.25,True,1
+T_color,visual,dit_2,6.25,True,1
+G_color,text,backbone,0.0,True,8
+G_color,visual,backbone,0.0,True,8

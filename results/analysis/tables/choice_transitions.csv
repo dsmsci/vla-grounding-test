@@ -1,0 +1,9 @@
+family,contrast,condition,site,alpha,n,original_to_alternative,unknown_to_alternative,alternative_lost,switch_rate,switch_wilson_low,switch_wilson_high,R_lost,R_gained
+T_native,text,patch_to_alt,backbone,1.0,12,0,0,0,0.0,0.0,0.24249400665524085,12,0
+G_native,text,patch_to_alt,backbone,1.0,12,10,0,0,0.8333333333333334,0.5519691377470266,0.953034857816146,0,0
+G_native,text,steer,backbone,1.0,12,10,0,0,0.8333333333333334,0.5519691377470266,0.953034857816146,0,0
+T_color,text,patch_to_alt,dit_28,1.0,12,0,3,0,0.0,0.0,0.24249400665524085,1,3
+T_color,visual,patch_to_alt,dit_2,1.0,12,0,2,0,0.0,0.0,0.24249400665524085,1,0
+T_color,text,steer,dit_28,0.5,12,0,2,0,0.0,0.0,0.24249400665524085,0,1
+G_color,text,patch_to_alt,backbone,1.0,12,0,0,0,0.0,0.0,0.24249400665524085,0,0
+G_color,visual,patch_to_alt,backbone,1.0,12,0,0,0,0.0,0.0,0.24249400665524085,0,0

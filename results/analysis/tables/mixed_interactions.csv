@@ -1,0 +1,13 @@
+family,series,metric,n,excluded,delta_pp,low_pp,high_pp
+T_color,inputs,choice1,12,0,0.0,-25.0,25.0
+T_color,inputs,select1,12,0,16.666666666666664,-16.666666666666664,50.0
+T_color,inputs,binding_correct,12,0,8.333333333333332,-75.0,91.66666666666666
+T_color,context_patch,choice1,12,0,0.0,-25.0,25.0
+T_color,context_patch,select1,12,0,8.333333333333332,-25.0,41.66666666666667
+T_color,context_patch,binding_correct,12,0,8.333333333333332,-75.0,91.66666666666666
+G_color,inputs,choice1,12,0,0.0,0.0,0.0
+G_color,inputs,select1,12,0,0.0,0.0,0.0
+G_color,inputs,binding_correct,12,0,0.0,-100.0,100.0
+G_color,context_patch,choice1,12,0,0.0,0.0,0.0
+G_color,context_patch,select1,12,0,0.0,0.0,0.0
+G_color,context_patch,binding_correct,12,0,0.0,-100.0,100.0

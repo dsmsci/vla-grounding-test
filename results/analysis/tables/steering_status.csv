@@ -1,0 +1,5 @@
+family,included,site,alpha,sources,phase
+T_native,False,,,0,не выполнен
+G_native,True,backbone,1.0,8,после захвата
+T_color,True,dit_28,0.5,8,до захвата
+G_color,False,,,0,не выполнен
