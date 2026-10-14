@@ -1,0 +1,123 @@
+{
+  "site": "dit_28",
+  "factor": "T",
+  "phase": "initial",
+  "development_scenes": 8,
+  "source_count": 8,
+  "missing_phase_indices": [],
+  "sources": [
+    {
+      "index": 0,
+      "scene_id": 1746728340,
+      "target": "alphabet_soup_2",
+      "position": [
+        0.15090574425530875,
+        0.03021878264901682,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    },
+    {
+      "index": 1,
+      "scene_id": 1816048189,
+      "target": "alphabet_soup_1",
+      "position": [
+        -0.11909425574469136,
+        -0.23978121735098315,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    },
+    {
+      "index": 2,
+      "scene_id": 223310208,
+      "target": "alphabet_soup_2",
+      "position": [
+        0.15090574425530875,
+        0.030218782649016805,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    },
+    {
+      "index": 3,
+      "scene_id": 657310423,
+      "target": "alphabet_soup_1",
+      "position": [
+        -0.11909425574469136,
+        -0.23978121735098318,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    },
+    {
+      "index": 4,
+      "scene_id": 1946935182,
+      "target": "alphabet_soup_2",
+      "position": [
+        0.15090574425530875,
+        0.030218782649016812,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    },
+    {
+      "index": 5,
+      "scene_id": 892244025,
+      "target": "alphabet_soup_1",
+      "position": [
+        -0.11909425574469137,
+        -0.2397812173509832,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    },
+    {
+      "index": 6,
+      "scene_id": 485288208,
+      "target": "alphabet_soup_2",
+      "position": [
+        0.15090574425530875,
+        0.03021878264901681,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    },
+    {
+      "index": 7,
+      "scene_id": 1753753709,
+      "target": "alphabet_soup_1",
+      "position": [
+        -0.11909425574469136,
+        -0.23978121735098315,
+        0.038392910369975934
+      ],
+      "phase": "initial",
+      "step": 0,
+      "noise_seed": 403056972,
+      "mlflow_run_id": null
+    }
+  ],
+  "sha256": "197bf7fb8984940899fa81c28b0bfa1cb407ebdeb9ef767881d22b516bcc7aa0"
+}

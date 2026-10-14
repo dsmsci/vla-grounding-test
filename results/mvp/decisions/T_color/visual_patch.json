@@ -1,0 +1,23 @@
+{
+  "site": "dit_2",
+  "metric": "factor_choice",
+  "development_scores": {
+    "backbone": -0.25,
+    "context": -0.25,
+    "dit_0": -0.0625,
+    "dit_2": 0.0625,
+    "dit_16": 0.0,
+    "dit_18": -0.125,
+    "dit_28": -0.0625,
+    "dit_30": -0.0625
+  },
+  "forward": 0.125,
+  "reverse": 0.0,
+  "preservation_drop": -0.125,
+  "preservation_within_tolerance": true,
+  "controls": {
+    "patch_same": 0.125,
+    "patch_random": 0.125
+  },
+  "positive": true
+}

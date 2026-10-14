@@ -1,0 +1,123 @@
+{
+  "site": "backbone",
+  "factor": "G",
+  "phase": "post_grasp",
+  "development_scenes": 8,
+  "source_count": 8,
+  "missing_phase_indices": [],
+  "sources": [
+    {
+      "index": 0,
+      "scene_id": 356990178,
+      "target": "flat_stove_1",
+      "position": [
+        -0.25228511016253863,
+        0.20961893025897899,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 53,
+      "noise_seed": 1201640979,
+      "mlflow_run_id": "b583b5bf85e74307a875d1cdb4a39298"
+    },
+    {
+      "index": 1,
+      "scene_id": 533543477,
+      "target": "flat_stove_1",
+      "position": [
+        -0.26406761600937056,
+        0.20540088481366242,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 70,
+      "noise_seed": 1707318626,
+      "mlflow_run_id": "81695c4feb104807946efae82d116794"
+    },
+    {
+      "index": 2,
+      "scene_id": 1560767390,
+      "target": "flat_stove_1",
+      "position": [
+        -0.2670749465714418,
+        0.2005899934353824,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 52,
+      "noise_seed": 1201640979,
+      "mlflow_run_id": "cde57dad980a44dfb95d98fb8f2bd740"
+    },
+    {
+      "index": 3,
+      "scene_id": 1067343577,
+      "target": "flat_stove_1",
+      "position": [
+        -0.2531508610356682,
+        0.21907383568265928,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 50,
+      "noise_seed": 1201640979,
+      "mlflow_run_id": "5d8d3fd0cb1a4b13aa88e8b72c4b38f6"
+    },
+    {
+      "index": 4,
+      "scene_id": 796759546,
+      "target": "flat_stove_1",
+      "position": [
+        -0.2535429455793501,
+        0.21934110152145503,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 55,
+      "noise_seed": 1201640979,
+      "mlflow_run_id": "9f6a75f434e7411a9864124962f54447"
+    },
+    {
+      "index": 5,
+      "scene_id": 238963457,
+      "target": "flat_stove_1",
+      "position": [
+        -0.2537984726841843,
+        0.20424980583045435,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 54,
+      "noise_seed": 1201640979,
+      "mlflow_run_id": "184932337bf74be19b699dbf864498f4"
+    },
+    {
+      "index": 6,
+      "scene_id": 145447114,
+      "target": "flat_stove_1",
+      "position": [
+        -0.2589611439062178,
+        0.2082827452432504,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 51,
+      "noise_seed": 1201640979,
+      "mlflow_run_id": "7bb9625c978b4e9b83177f578a12f6cd"
+    },
+    {
+      "index": 7,
+      "scene_id": 2110701733,
+      "target": "flat_stove_1",
+      "position": [
+        -0.25302669908084763,
+        0.21401682986670578,
+        0.905
+      ],
+      "phase": "post_grasp",
+      "step": 51,
+      "noise_seed": 1201640979,
+      "mlflow_run_id": "efd131be3f6f493a9697799e94cc8e72"
+    }
+  ],
+  "sha256": "638238fc819ede5c769adb20eb1ec574b553a2f9c899b2094d961c3d1f81ba91"
+}

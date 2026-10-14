@@ -1,0 +1,65 @@
+{
+  "patches": {
+    "text": {
+      "site": "backbone",
+      "metric": "factor_choice",
+      "development_scores": {
+        "backbone": 0.8125,
+        "context": 0.8125,
+        "dit_0": 0.0,
+        "dit_2": 0.0,
+        "dit_16": 0.0,
+        "dit_18": 0.0,
+        "dit_28": 0.0,
+        "dit_30": 0.0
+      },
+      "forward": 0.875,
+      "reverse": 0.75,
+      "preservation_drop": 0.0,
+      "preservation_within_tolerance": true,
+      "controls": {
+        "patch_same": 0.875,
+        "patch_random": 0.875
+      },
+      "positive": true
+    }
+  },
+  "steering": {
+    "site": "backbone",
+    "metric": "choice1",
+    "factor": "G",
+    "source_count": 8,
+    "alpha": 1.0,
+    "scores": {
+      "0.5": 0.5,
+      "1.0": 0.875,
+      "1.5": 0.875
+    },
+    "preservation_drops": {
+      "0.5": 0.125,
+      "1.0": 0.0,
+      "1.5": 0.125
+    },
+    "preservation_within_tolerance": {
+      "0.5": false,
+      "1.0": true,
+      "1.5": false
+    },
+    "reason": null
+  },
+  "mixed": false,
+  "seed": 17,
+  "sites": [
+    "backbone",
+    "context",
+    "dit_0",
+    "dit_2",
+    "dit_16",
+    "dit_18",
+    "dit_28",
+    "dit_30"
+  ],
+  "development_scenes": 8,
+  "test_scenes": 12,
+  "direction_sha256": "638238fc819ede5c769adb20eb1ec574b553a2f9c899b2094d961c3d1f81ba91"
+}

@@ -1,0 +1,57 @@
+{
+  "config": {
+    "seed": 17,
+    "families": [
+      "T_native",
+      "G_native",
+      "T_color",
+      "G_color"
+    ],
+    "development": 8,
+    "test": 12,
+    "sites": [
+      "backbone",
+      "context",
+      "dit_0",
+      "dit_2",
+      "dit_16",
+      "dit_18",
+      "dit_28",
+      "dit_30"
+    ],
+    "denoise_step": 0,
+    "execute": 16,
+    "max_steps": 300,
+    "success_hold_steps": 5,
+    "preservation_tolerance": 0.05,
+    "alphas": [
+      0.5,
+      1.0,
+      1.5
+    ],
+    "bootstrap": 10000
+  },
+  "code": {
+    "src/__init__.py": "bf2f6d98919b001c09c0cec125487a774ef146f7a17c9c576cf007f81d64b2e3",
+    "src/cli.py": "6a1b40aef5105ecf10655681939960ade2b0220eb2c3cdf698b2b87ba65857fb",
+    "src/core.py": "4866ffa0ddb4c8727c12a46474dd839ce09a990945dec3c8b78ee6896c81df2b",
+    "src/experiment.py": "0245c75b1e7f610920a6c75ffda132825869d308763aacc500fb24d712cefd81",
+    "src/interventions.py": "165313b8322a1b15653b566f00d1fc7f71d14271b0d5cb6b4ec8b6bbedfca536",
+    "src/policy.py": "0bff8acd3a742f4e966e9d2530e3575a96c133c921d3c8502732fddccf51c33d",
+    "src/rollout.py": "1b9e37d7c2bc018ad515c94c7df913706f8e720357e923e81248f8e5ef87317f",
+    "src/runtime.py": "fff0ed05faef4b6fff321f31274d5526b327774bbd3bf0b97e1b4ab14ccf38f2",
+    "src/scenes.py": "b0555ae0e371d4291d8ac262931b2cb1acccfbacddcfa4acaafa5641a26051b3",
+    "src/stats.py": "8169424828a61641784fc363099ce00a17e6eebd58b5173c0de23207ff663879",
+    "src/tracking.py": "3a03eb6d9f5e6335cfa299595ab7a6ef2c3b4ba3c01b1e16424e0e4a2f2a419b",
+    "run.py": "f5e85995d024f6fae1efce7ef95b20075ef05b2da748f5074ddd922cbd9d606f",
+    "pyproject.toml": "ee1f6988cbb9ec33ceaa0fd8b152715a5884db5cbbb497d1b84abfafe25ee829",
+    "uv.lock": "c88bc6a039a9bd8a58a9a3a69d2b4634858099c17d815c31cf1173f9bd887c13"
+  },
+  "pins": {
+    "groot": "d2b7e75b937e3ec9aa5dbc798f08b89692c49734",
+    "libero": "8f1084e3132a39270c3a13ebe37270a43ece2a01",
+    "weights": "2ea293aa20ba7cf5bbf3ba17a5fbcb1a01cbfe21",
+    "backbone": "9ce19a195e423419c349abfc86fd07178b230561"
+  },
+  "signature": "daf5da271b61d0283ba74e3761f9c40047cb3379981a74d1f1bb395a5b679e21"
+}

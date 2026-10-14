@@ -1,0 +1,74 @@
+{
+  "backbone/text/base vs backbone/text/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9984224410785454,
+    "shuffled": -0.17495215281900045,
+    "n": 8
+  },
+  "backbone/image/base vs backbone/image/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9999999999999999,
+    "shuffled": -0.15521743882643768,
+    "n": 8
+  },
+  "context/text/base vs context/text/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9908220113056276,
+    "shuffled": 0.057046799018423716,
+    "n": 8
+  },
+  "context/image/base vs context/image/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9858039747711586,
+    "shuffled": -0.07805786106514206,
+    "n": 8
+  },
+  "dit_0/action/base vs dit_0/action/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9665744536258634,
+    "shuffled": -0.07106612691945607,
+    "n": 8
+  },
+  "dit_2/action/base vs dit_2/action/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9075759862795103,
+    "shuffled": 0.02967079474174497,
+    "n": 8
+  },
+  "dit_16/action/base vs dit_16/action/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.913550524557766,
+    "shuffled": -0.19358443151813343,
+    "n": 8
+  },
+  "dit_18/action/base vs dit_18/action/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9342382431660675,
+    "shuffled": 0.17546208709688887,
+    "n": 8
+  },
+  "dit_28/action/base vs dit_28/action/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9565828508773795,
+    "shuffled": -0.14447121501809118,
+    "n": 8
+  },
+  "dit_30/action/base vs dit_30/action/text": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.9571194705180757,
+    "shuffled": 0.09919109607941869,
+    "n": 8
+  },
+  "backbone/text/base vs backbone/image/base": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.06391911497334186,
+    "shuffled": -0.08841684694948856,
+    "n": 8
+  },
+  "context/text/base vs context/image/base": {
+    "estimator": "debiased_linear_hsic_u",
+    "cka": 0.6970350750263249,
+    "shuffled": 0.6372008094381733,
+    "n": 8
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "rates": {
+    "baseline": 1.0,
+    "alternate": 0.0
+  },
+  "factor_rates": {
+    "baseline": {
+      "T_correct": 1.0,
+      "G_correct": 1.0,
+      "R": 1.0,
+      "choice0": 1.0,
+      "choice1": 0.0
+    },
+    "alternate": {
+      "T_correct": 0.0,
+      "G_correct": 0.0,
+      "R": 0.0,
+      "choice0": 0.0,
+      "choice1": 0.0
+    }
+  },
+  "role": "diagnostic_only",
+  "denominator": 8
+}

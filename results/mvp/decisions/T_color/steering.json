@@ -1,0 +1,23 @@
+{
+  "site": "dit_28",
+  "metric": "choice1",
+  "factor": "T",
+  "source_count": 8,
+  "alpha": 0.5,
+  "scores": {
+    "0.5": 0.25,
+    "1.0": 0.25,
+    "1.5": 0.25
+  },
+  "preservation_drops": {
+    "0.5": -0.375,
+    "1.0": -0.25,
+    "1.5": -0.375
+  },
+  "preservation_within_tolerance": {
+    "0.5": true,
+    "1.0": true,
+    "1.5": true
+  },
+  "reason": null
+}

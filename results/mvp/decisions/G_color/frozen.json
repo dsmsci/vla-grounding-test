@@ -1,0 +1,69 @@
+{
+  "patches": {
+    "text": {
+      "site": "backbone",
+      "metric": "factor_choice",
+      "development_scores": {
+        "backbone": 0.0,
+        "context": 0.0,
+        "dit_0": 0.0,
+        "dit_2": 0.0,
+        "dit_16": 0.0,
+        "dit_18": 0.0,
+        "dit_28": 0.0,
+        "dit_30": 0.0
+      },
+      "forward": 0.0,
+      "reverse": 0.0,
+      "preservation_drop": 0.0,
+      "preservation_within_tolerance": true,
+      "controls": {
+        "patch_same": 0.0,
+        "patch_random": 0.0
+      },
+      "positive": false
+    },
+    "visual": {
+      "site": "backbone",
+      "metric": "factor_choice",
+      "development_scores": {
+        "backbone": 0.0,
+        "context": 0.0,
+        "dit_0": 0.0,
+        "dit_2": 0.0,
+        "dit_16": 0.0,
+        "dit_18": 0.0,
+        "dit_28": 0.0,
+        "dit_30": 0.0
+      },
+      "forward": 0.0,
+      "reverse": 0.0,
+      "preservation_drop": 0.0,
+      "preservation_within_tolerance": true,
+      "controls": {
+        "patch_same": 0.0,
+        "patch_random": 0.0
+      },
+      "positive": false
+    }
+  },
+  "steering": {
+    "site": null,
+    "alpha": null,
+    "reason": "Direct development patch did not improve alternative choice and beat controls"
+  },
+  "mixed": true,
+  "seed": 17,
+  "sites": [
+    "backbone",
+    "context",
+    "dit_0",
+    "dit_2",
+    "dit_16",
+    "dit_18",
+    "dit_28",
+    "dit_30"
+  ],
+  "development_scenes": 8,
+  "test_scenes": 12
+}
